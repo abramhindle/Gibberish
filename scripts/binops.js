@@ -2,7 +2,7 @@
 These objects create binary operations - mathematical operations taking two arguments - and create signal processing functions using them. They are primarily used for
 modulation purposes. You can export the constructors for easier use similar to the [Time](javascript:displayDocs('Gibberish.Time'\)) constructors.
 
-Add, Sub, Mul and Div can actually take as many arguments as you wish. For example, Add(1,2,3,4) will return an object that outputs 10. You can stack multiple oscillators this way as well.
+Add, Sub, Mul and Div can actually take as many arguments as you wish. For example, Add(1,2,3,4) will return an object that outputs 10. You can stack multiple monophonic oscillators this way as well. Ugens must be monophonic.
 
 ##Example Usage   
 `// This example creates a tremolo effect via amplitude modulation  
@@ -10,6 +10,11 @@ Gibberish.Binops.export(); // now all constructors are also part of the window o
 mod = new Gibberish.Sine(4, .25);  
 sin = new Gibberish.Sine( 440, add( .5, mod ) ).connect();  
 `
+
+### Caveats
+
+UGens that are stereo (e.g., created by makePanner) will not work well with Binops and will often silently fail. The Gibberish.Binops.Merge ugen can sum the channels together to produce a monophonic oscillator.
+
 **/
 
 Gibberish.Binops = {
